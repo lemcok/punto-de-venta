@@ -18,6 +18,7 @@ function createWindow () {
     win.loadFile('src/MainScreen/main.html')
 } 
 
+/**get all Products */
 ipcMain.handle('get', () => {
     getProducts()
 })
@@ -26,6 +27,20 @@ const getProducts = async() => {
     const products = await db.query('SELECT * FROM products')
     win.webContents.send('products', products)
 }
+
+/**Register one product */
+ipcMain.handle('add', ( e, obj )=> {
+    addProduct( obj )
+})
+
+const addProduct = async( product ) => {
+    const db = await connectDB()
+    const sql = 'INSERT INTO products SET ?'
+    await db.query( sql, product )
+    getProducts()
+}
+
+
 
 
 
