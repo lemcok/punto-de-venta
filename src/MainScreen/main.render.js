@@ -47,6 +47,11 @@ ipcRenderer.on('products', (e, products) => {
     btnEdit.forEach( btn => {
         btn.addEventListener('click', renderGetOneProduct)
     } )
+
+    const btnDelete = document.querySelectorAll(".btn-danger")
+    btnDelete.forEach( btn => {
+        btn.addEventListener('click', renderDeleteProduct)
+    } )
 })
 
 /** Register Product */
@@ -66,7 +71,7 @@ const clearInputs = () => {
 productForm.addEventListener('submit', (e) => {
     e.preventDefault();
     if( name.value === '') return;
-    
+
     if (idProduct.value.length > 0) {
         renderUpdateProduct()
         clearInputs()
@@ -100,8 +105,7 @@ const renderGetOneProduct = async(e) => {
     await ipcRenderer.invoke('get_one', idProduct)
 }
 
-/**Update Product */
-
+/** Update Product */
 const renderUpdateProduct = async() => {
     const newProduct = {
         id: idProduct.value,
@@ -110,6 +114,12 @@ const renderUpdateProduct = async() => {
         description: description.value,
     }
     await ipcRenderer.invoke('updateProduct', newProduct)
+}
+
+/** Delete Product */
+const renderDeleteProduct = async(e) => {
+    const idProduct = e.target.value
+    await ipcRenderer.invoke('delete_product', idProduct)
 }
 
 

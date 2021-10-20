@@ -18,7 +18,7 @@ function createWindow () {
     win.loadFile('src/MainScreen/main.html')
 } 
 
-/**Get all Products */
+/** Get all Products */
 ipcMain.handle('get', () => {
     getProducts()
 })
@@ -28,7 +28,7 @@ const getProducts = async() => {
     win.webContents.send('products', products)
 }
 
-/**Get One Product */
+/** Get One Product */
 ipcMain.handle('get_one', (e, idproduct) => {
     getOneProduct(idproduct)    
 });
@@ -39,7 +39,7 @@ const getOneProduct = async(id = 2) => {
     win.webContents.send('product', product[0])
 }
 
-/**Register one product */
+/** Register one product */
 ipcMain.handle('addProduct', ( e, obj )=> {
     addProduct( obj )
 })
@@ -50,7 +50,7 @@ const addProduct = async( product ) => {
     getProducts()
 }
 
-/**Update one product */
+/** Update one product */
 ipcMain.handle('updateProduct', (event, obj) => {
     updateProduct(obj)    
 });
@@ -62,8 +62,17 @@ const updateProduct = async( product ) => {
     getProducts()
 }
 
+/** Delete Product */
+ipcMain.handle('delete_product', (event, id) => {
+    deleteProduct(id)
+  });
 
-
+const deleteProduct = async(id) => {
+    const db = await connectDB()
+    const sql = 'DELETE FROM products WHERE id = ?'
+    await db.query( sql, id )
+    getProducts()
+}
 
 
 
