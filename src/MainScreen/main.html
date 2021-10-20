@@ -16,6 +16,7 @@
 
             <div class="col-md-6 p-4">
                 <form class="card card-body" id="productForm">
+                    <input type="text" id="idProduct" hidden >
                     <div class="form-group">
                         <input 
                             class="form-control"
@@ -57,21 +58,11 @@
                         <th scope="col">Name</th>
                         <th scope="col">Price</th>
                         <th scope="col">Description</th>
-                      </tr>
+                        <th scope="col">Action</th>
+                    </tr>
                     </thead>
                     <tbody id="mylist">
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Rellenitas</td>
-                        <td>S/. 0.50</td>
-                        <td>galletas de una capa</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>InkaCola</td>
-                        <td>S/. 2.50</td>
-                        <td>Gaseosa rica</td>
-                      </tr>
+                        <!-- lista desde la db -->
                     </tbody>
                   </table>
             </div>
